@@ -13,10 +13,12 @@ namespace TC.BrowserEngine.AdminPanel.Controllers
     [Route("[controller]")]
     public class LoginController : ControllerBase
     {
+        private BrowserEngineManager _browserEngineManager;
         private LocalUserRepository _localUserRepository;
 
-        public LoginController()
+        public LoginController(BrowserEngineManager browserEngineManager)
         {
+            _browserEngineManager = browserEngineManager;
             _localUserRepository =new LocalUserRepository();
         }
         [HttpGet]
@@ -43,7 +45,7 @@ namespace TC.BrowserEngine.AdminPanel.Controllers
                 Name= userModel.Name,
                 Token=token
             });
-            BrowserEngineManager.Instance.StartInstances();
+            _browserEngineManager.StartInstances();
             return Ok();
         }
 

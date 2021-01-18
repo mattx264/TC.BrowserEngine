@@ -35,7 +35,7 @@ namespace TC.BrowserEngine.AdminPanel
                     builder.WithOrigins("http://localhost:5200").AllowAnyHeader().AllowAnyOrigin();
                 });
             });
-
+            services.AddSingleton<BrowserEngineManager>();
             //    //services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
             //    //services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -6,14 +6,14 @@ namespace TC.BrowserEngine
 {
     public sealed class BrowserEngineManager
     {
-        private static readonly Lazy<BrowserEngineManager>
-            lazy = new Lazy<BrowserEngineManager>
-            (() => new BrowserEngineManager());
+        //private static readonly Lazy<BrowserEngineManager>
+        //    lazy = new Lazy<BrowserEngineManager>
+        //    (() => new BrowserEngineManager());
 
-        public static BrowserEngineManager Instance { get { return lazy.Value; } }
+       // public static BrowserEngineManager Instance { get { return lazy.Value; } }
 
         private List<BrowserEngineStartup> browserEngineStartups;
-        private BrowserEngineManager()
+        public BrowserEngineManager()
         {
             browserEngineStartups = new List<BrowserEngineStartup>();
         }
