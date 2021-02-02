@@ -28,8 +28,6 @@ namespace TC.BrowserEngine.Selenium
         /// <param name="SeleniumCommands"></param>
         public void Start(CommandMessage commandMessage)
         {
-
-
             foreach (var command in commandMessage.Commands)
             {
                 ITestProgress testProgress = new TestProgress()
@@ -66,10 +64,7 @@ namespace TC.BrowserEngine.Selenium
                                 _testProgressEmitter.CommandComplete(testProgress);
                             }
                         }
-
-
                     }
-
 
                     if (command.WebDriverOperationType == WebDriverOperationType.BrowserOperation
                         && command.OperationId == (int)BrowserOperationEnum.GetScreenshot)
@@ -80,15 +75,10 @@ namespace TC.BrowserEngine.Selenium
                     {
 
                         element = RunCommand(command);
-                        if (command.OperationId == 18 && command.WebDriverOperationType == WebDriverOperationType.BrowserNavigationOperation)
-                        {
-                            //close browser is not send with status - if we want to do it add guid to close browser command
-                            break;
-                        }
                         testProgress.IsSuccesfull = true;
                         _testProgressEmitter.CommandComplete(testProgress);
-                        var config = commandMessage.Configurations.FirstOrDefault(x => x.Id == 1);
-                        if (config?.Value == "true")//Take Screenshot After Every Command
+                        var config = commandMessage.Configurations.FirstOrDefault(x => x.Id == 2);
+                        if (config?.Value == "true" && !IsBrowserClosed(_driver))//Take Screenshot After Every Command
                         {
                             TakeScreenshot(commandMessage, command);
                         }
@@ -107,6 +97,22 @@ namespace TC.BrowserEngine.Selenium
             }
             // _driver.Close();
         }
+
+        public bool IsBrowserClosed(IWebDriver driver)
+        {
+            bool isClosed = false;
+            try
+            {
+                _ = driver.Title;
+            }
+            catch (WebDriverException ex)
+            {
+                isClosed = true;
+            }
+
+            return isClosed;
+        }
+
         private void TakeScreenshot(CommandMessage commandMessage, SeleniumCommand command)
         {
             var screenshot = new BrowserOperation(_driver).GetScreenshot();
@@ -160,6 +166,6 @@ namespace TC.BrowserEngine.Selenium
         public string GetPageSource()
         {
             return _driver.PageSource;
-        }       
+        }
     }
 }

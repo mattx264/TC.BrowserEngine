@@ -15,8 +15,7 @@ namespace TC.BrowserEngine.AdminPanel
                (() => new LocalServer());
 
         public static LocalServer Instance { get { return lazy.Value; } }
-
-       
+        
         private LocalServer()
         {
             host = new WebHostBuilder()
@@ -24,7 +23,7 @@ namespace TC.BrowserEngine.AdminPanel
              .UseContentRoot(Directory.GetCurrentDirectory())
              //.UseIISIntegration()
              .UseStartup<Startup>()
-             .UseUrls("http://*:54321")
+             .UseUrls("http://*:4322")
              .Build();
 
             host.Start();
