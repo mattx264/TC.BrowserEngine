@@ -37,10 +37,12 @@ namespace TC.BrowserEngine.Signal
                 }
                 _connection.On("ReciveTriggerTest", (int testId, CommandMessage commandMessage) =>
                 {
+                    Console.WriteLine("ReciveTriggerTest");
                     ReciveTriggerTest(testId, commandMessage);
                 });
                 _connection.On("ReciveCommand", (CommandMessage commandMessage) =>
                 {
+                    Console.WriteLine("ReciveCommand");
                     ReciveCommand(commandMessage);
                 });
 

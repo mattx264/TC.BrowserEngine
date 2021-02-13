@@ -16,6 +16,7 @@ namespace TC.BrowserEngine.AdminPanel.DataAccess
         }
         public void SetOrUpdateLocalUser(LocalUser localUser)
         {
+            LogoutCurrentUser();
             var user = _database.GetCollection<LocalUser>(tableName).FindOne(x => x.Guid == localUser.Guid);
             if (user == null)
             {
@@ -51,7 +52,13 @@ namespace TC.BrowserEngine.AdminPanel.DataAccess
 
         internal void LogoutCurrentUser()
         {
+            // During tests it was multi active user - potecial issue ?
             var user = GetCurrentUser();
+            
+            if(user == null)
+            {
+                return;
+            }
             user.IsActive = false;
             user.ModifiedDate =  DateTime.Now;
             _database.GetCollection<LocalUser>(tableName).Update(user);

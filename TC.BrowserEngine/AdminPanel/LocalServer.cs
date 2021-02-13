@@ -32,7 +32,7 @@ namespace TC.BrowserEngine.AdminPanel
 
         public void OpenLoginPage()
         {
-            OpenBrowser("http://localhost:54321/#!/login");
+            OpenBrowser("http://localhost:4322/#!/login");
         }
         public void OpenBrowser(string url)
         {

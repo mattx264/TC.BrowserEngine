@@ -25,6 +25,9 @@ namespace TC.BrowserEngine.Selenium.Commands
                     case "Keys.ENTER":
                         element.SendKeys(Keys.Enter);
                         break;
+                    case "Keys.BACKSPACE":
+                        element.SendKeys(Keys.Backspace);
+                        break;
                     case "Keys.TAB":
                         element.SendKeys(Keys.Tab);
                         break;
