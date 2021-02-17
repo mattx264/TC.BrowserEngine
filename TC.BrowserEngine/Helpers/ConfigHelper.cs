@@ -6,13 +6,11 @@ namespace TC.BrowserEngine.Helpers
 {
     public static class ConfigHelper
     {
-        /**
-         * returns 'https://localhost:44384/'
-         */
+        
         public static string GetServerAddress()
     {
 #if DEBUG
-return "https://localhost:44384/";
+return "http://localhost/TC.WebService/";
 #else
      return "prod url";
 #endif
