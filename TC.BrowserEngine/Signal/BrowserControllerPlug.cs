@@ -46,6 +46,7 @@ namespace TC.BrowserEngine.Signal
                     ReciveCommand(commandMessage);
                 });
 
+                Console.WriteLine($"ConnectionId - {_connection.ConnectionId}");
             }
             catch (Exception ex)
             {

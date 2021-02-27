@@ -73,14 +73,24 @@ namespace TC.BrowserEngine.Selenium
                     }
                     else
                     {
-
-                        element = RunCommand(command);
-                        testProgress.IsSuccesfull = true;
-                        _testProgressEmitter.CommandComplete(testProgress);
-                        var config = commandMessage.Configurations.FirstOrDefault(x => x.Id == 2);
-                        if (config?.Value == "true" && !IsBrowserClosed(_driver))//Take Screenshot After Every Command
+                        try
                         {
-                            TakeScreenshot(commandMessage, command);
+                            element = RunCommand(command);
+                            testProgress.IsSuccesfull = true;
+                            _testProgressEmitter.CommandComplete(testProgress);
+                            var config = commandMessage.Configurations.FirstOrDefault(x => x.ConfigProjectTestId == 1);
+                            if (config?.Value == "true" && !IsBrowserClosed(_driver))//Take Screenshot After Every Command
+                            {
+                                TakeScreenshot(commandMessage, command);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // This is wrappe araund RunCommand
+                            // TODO - should it break when there is error ?????
+                            testProgress.IsSuccesfull = false;
+                            testProgress.Message = ex.Message;
+                            _testProgressEmitter.CommandComplete(testProgress);
                         }
                     }
 
